@@ -1,0 +1,39 @@
+# Apostol Stefan, Ionita Stefanita 314CA
+
+********************************************************************************
+
+- concat: cream un nod nou, de care ne folosim sa cream un nou arbore, fiul lui
+stang fiind radacina primului arbore, iar fiul lui drept radacina celui de-al
+doilea.
+
+- indexRope: parcurgem Rope-ul pana ajungem la frunza care contine caracterul
+cautat si returnam caracterul de pe pozitia index. Atunci cand ne mutam pe un
+branch drept, din index se scade greutatea nodului din care plecam pe
+branch-ul drept.
+
+- search: formam cuvantul cautat apeland indexRope de (end - start) ori.
+
+- split: avem cazul particular in care idx > greutatea Rope-ului in care
+perechea stanga e fix Rope-ul. Apelam go_through care face split-ul.
+
+- go_through:
+	- in cazul in care este taiata o frunza, copiem caracter cu caracter
+	string-urile si cream 2 frunze, una facand parte din node1, iar cealalta
+	din node2. Actualizam si str-ul si weight-ul acestora.
+	- in cazul in care idx == weight-ul lui rn, taierea se face la finalul
+	unei frunze. Fiul stang al lui node1 este fiul stang al nodului cu greutatea
+	== idx, iar fiul stang al lui node2 este fiul drept al nodului cu greutatea
+	== idx.
+	- in cazul in care idx < weight-ul lui rn, fiul drept al lui node2 va fi
+	fiul drept al lui rn, urmand sa ne mutam in mod recursiv pe branch-ul stang
+	al lui rn, modificand greutatea nodurilor.
+	- in cazul in care idx > weight-ul lui rn, fiul stang al lui node1 va fi
+	fiul stang al lui rn, urmand sa ne mutam recursiv pe branch-ul drept al lui
+	rn, modificand inainte idx-ul de cautare, iar la final modificam greutatea
+	noului nod.
+
+- insert: facem un split pe Rope si concatenam de doua ori pentru a obtine noul
+arbore. Eliberam memoria alocata suplimentar.
+
+- delete: facem 2 split-uri pe Rope si concatenam subarborele stang al primei
+perechi cu subarborele drept al celei de-a doua perechi.
